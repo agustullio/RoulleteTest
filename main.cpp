@@ -6,8 +6,13 @@ class Gambler{
 public:
     char Name;
     int aSize = 4;
-    int account[4] = {1, 2, 3, 4};
-   
+    int account[];
+    void newAccount(){
+       for (int i = 0; i < 4; i++)
+       {
+           account[i] = ++i;
+       }
+    }
 };
 
 

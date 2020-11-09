@@ -3,15 +3,52 @@
 #include <iostream>
 
 class Gambler{
+    int aSize;
+    int *account;
+    char name;
 public:
-    char Name;
-    int aSize = 4;
-    int account[];
     void newAccount(){
-       for (int i = 0; i < 4; i++)
-       {
-           account[i] = ++i;
-       }
+        int *temp = new int[4];     //Creates a new empty array at the stack
+        for (int i = 0; i < 4; i++) //Copies the data from the old pointer to the new one created
+            temp[i] = ++i;  
+        delete[] account;           //Erease the old array from the stack, doing these we are sure there is not memory leakage
+        account = temp;     
+        aSize = 4;
+    }
+    void bet(){
+        int stemp = aSize + 1;
+        int *temp = new int[stemp];
+        int bet = account[0] + account[aSize - 1];
+        for (int i = 0; i < stemp; i++) //Copies the data from the old pointer to the new one created
+            temp[i] = account[i];  
+        delete[] account;           //Erease the old array from the stack, doing these we are sure there is not memory leakage
+        temp[stemp - 1] = bet;
+        account = temp;     
+        aSize = stemp;
+    }
+    void betLost(){
+        if(account[0] == 2){
+            newAccount();
+            continue;
+        }
+        int stemp = aSize -3;
+        int *temp = new int[stemp]; 
+        for (int i = 0; i < stemp; i++) //Copies the data from the old pointer to the new one created
+            temp[i] = account[i + 1];
+        delete[] account;
+        account = temp;
+        aSize = stemp;
+    }
+    void betWon(){
+        if(account[aSize-1] == 4000){
+            newAccount();
+        }
+    }
+    char getName(){
+        return name;
+    }
+    void setName(Lname){
+        name = Lname;
     }
 };
 
@@ -92,63 +129,92 @@ void DyArray(int*& arr, int currentSize, int newSize){
     arr = temp;
 }
 
-void Gamble(Gambler*& per){
-    Gambler *temp = new Gambler;        //Creates a new empty object
-    int size = per->aSize + 1;          //Increase by one the array that holds the "money" of each gambler
-    int  *aTemp = new int[size];        //Creates a new empty array to operate the "account" array
-    int bet = 0;
-    for (int i = 0; i < size; i++){
-        aTemp[i] = per->account[i];
-    }
-    bet = aTemp[0]+aTemp[size - 2];     //charges the bet to the count, if the gamble is lost, it will be lost
-    aTemp[size-1] = bet;
-    temp->aSize = size;
-    temp->Name = per->Name;
-    for (int i = 0; i < size; i++){
-        temp->account[i] = aTemp[i];    
-    }
-    delete[] aTemp;
-    delete per;
-    per = temp;
-}
-
-
-
 void main(){
     int rou;
     char result;
+    char gName[6] = {'A', 'B','C', 'D', 'E', 'F'};
+    Gambler Gamblers[6];
+
+    for(int i = 0; int < 6; i++)
+        Gamblers[i].newAccount;
 
     for(int i = 0; i < 10000; i++){
         rou = rand() %37;
         result = RuletaRules(rou);
+
+        for(int i = 0; int < 6; i++)        //All the players make their bets
+            Gamblers[i].bet;
+            Gamblers[i].setName(gName[i]);
+
         switch (result)
         {
-        case 0b0000:
-            /* code */
+        case 0b0000:                        //The roullete returns a Zero, all the player loose.
+            for(int i = 0; int < 6; i++)
+                Gamblers[i].betLost;
             break;
         case 0b0001:
-           /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b0010:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b0011:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b0100:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b0101:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b0110:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b0111:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         case 0b1000:
-            /* code */
+            Gamblers[0].betWon;
+            Gamblers[2].betWon;
+            Gamblers[4].betWon;
+            Gamblers[1].betLost;
+            Gamblers[2].betLost;
+            Gamblers[3].betLost;
             break;
         
     }
@@ -156,3 +222,4 @@ void main(){
 }
 
 
+// An improvement to the program would be that the Gambler Class containe the game's winning conditions for every player.

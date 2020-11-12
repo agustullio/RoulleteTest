@@ -1,4 +1,4 @@
-# RuletaTest
+# RoulleteTest
 Roullete Game Test
 
 This program it's a simulator of a Roullete Game, where there are 6 players playing as a team but with a different strategy each. At the end of 10000 games, all of them wins and looses would be added to reach a final result and in the best of the cases, the earnings.
